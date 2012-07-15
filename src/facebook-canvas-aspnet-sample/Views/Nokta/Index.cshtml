@@ -7,14 +7,16 @@
  
  </script>
 
-<img style="float:left" src="https://graph.facebook.com/@ViewBag.id/picture" alt="" /><h2>&nbsp&nbsp&nbsp&nbsp&nbsp @ViewBag.name </h2>
+<img style="float:left" src="https://graph.facebook.com/@ViewBag.id/picture" alt="" /><h2>&nbsp&nbsp&nbsp&nbsp&nbsp Hi  @ViewBag.name </h2>
+  
 <form action="/Nokta/Create/?userID=@ViewBag.id" method=post enctype="multipart/form-data">
-<br /><textarea name="body" id="body" cols=50 maxlength=200 ></textarea>
+<br /><textarea name="body" id="body" cols=80 maxlength=200 ></textarea>
             
 <input type="text" name"userID" id="userID" value="@ViewBag.id" style="display:none;"/>
 
 @*<input type="button" id="submit_wall" value="Post" class="btn" />*@
-<input type="submit" value="Add Nokta"/>
+<input type="submit" value="Add Nokta"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <a  href="#" onclick="sendRequestViaMultiFriendSelector();" >Invite Friends to join nokatak</a>
 </form>
 <p>
     @*@Html.ActionLink("Create New", "Create")<hr /><br />*@
@@ -37,7 +39,8 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
     <hr /> 
     <a href="/Nokta/IndexUser?uid=@Noktas[i].userID.ToString()&myid=@ViewBag.id" ><h4><img src="https://graph.facebook.com/@Noktas[i].userID/picture" alt="@ViewBag.list[i][0]" /> </h4>  </a>     
-    <p>
+ 
+     <p>
             @ViewBag.list[i][1]
             </p>
     if (Noktas[i].userID.ToString() == @ViewBag.id)
