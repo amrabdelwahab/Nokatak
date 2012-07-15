@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Nokatak.Models.Nokta>
+
+@{
+    ViewBag.Title = "Index";
+}
+ <script type="text/javascript">
+ 
+ </script>
+
+<img style="float:left" src="https://graph.facebook.com/@ViewBag.id/picture" alt="" /><h2>&nbsp&nbsp&nbsp&nbsp&nbsp @ViewBag.name </h2>
+<form action="/Nokta/Create/?userID=@ViewBag.id" method=post enctype="multipart/form-data">
+<br /><textarea name="body" id="body" cols=50 maxlength=200 ></textarea>
+            
+<input type="text" name"userID" id="userID" value="@ViewBag.id" style="display:none;"/>
+
+@*<input type="button" id="submit_wall" value="Post" class="btn" />*@
+<input type="submit" value="Add Nokta"/>
+</form>
+<p>
+    @*@Html.ActionLink("Create New", "Create")<hr /><br />*@
+ 
+ 
+@for (var i=0 ; i<@ViewBag.list.Count; i++) {
+    var Noktas = Model.ToList();
+     @* if (item.Body == null) { }
+    else
+    {
+        if (item.userID == null) { }
+        else
+        {
+    <h3>@Html.DisplayFor(modelItem => item.userID)</h3>
+            @Html.DisplayFor(modelItem => item.Body)<hr /><br />}
+    }
+   
+           @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+    <hr /> 
+    <a href="/Nokta/IndexUser?uid=@Noktas[i].userID.ToString()&myid=@ViewBag.id" ><h4><img src="https://graph.facebook.com/@Noktas[i].userID/picture" alt="@ViewBag.list[i][0]" /> </h4>  </a>     
+    <p>
+            @ViewBag.list[i][1]
+            </p>
+    if (Noktas[i].userID.ToString() == @ViewBag.id)
+    { 
+    @Html.ActionLink("Delete", "Delete", new { id = Noktas[i].ID })<text>&nbsp&nbsp&nbsp</text>
+    }<a href="#" onclick='postToFeed("@ViewBag.list[i][1]");' >share</a>
+    <p style="float:right">  <a href="/Nokta/Vote?NoktaID=@Noktas[i].ID&up=True&userID=@ViewBag.id" >Like</a>: @ViewBag.up[i]      <a href="/Nokta/Vote?NoktaID=@Noktas[i].ID&up=False&userID=@ViewBag.id" >Dislike</a>: @ViewBag.down[i] </p>
+                                
+}
+    <hr />
+    
+  
+                <div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({ appId: '432537273435666', channelURL: '@Request.Url.Scheme://@Request.Url.Authority@Url.Content("~/fbchannel.ashx")', cookie: true, xfbml: true, oauth: true });
+        FB.Event.subscribe('auth.login', function (response) { window.location.reload(); });
+        FB.Event.subscribe('auth.logout', function (response) { window.location.reload(); });
+
+    };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=432537273435666";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+
+    function postToFeed(messagewall) {
+        // calling the API ...
+        var obj = {
+            method: 'feed',
+            link: 'http://apps.facebook.com/nokatak/Nokta?id=100000814655661',
+            picture: 'http://fbrell.com/f8.jpg',
+            name: 'Nokatak Sharing',
+            caption: '',
+            description: messagewall,
+            message: messagewall
+        };
+
+        function callback(response) {
+        }
+
+        FB.ui(obj, callback);
+    }
+
+    function sendRequestViaMultiFriendSelector() {
+
+        FB.ui({ method: 'apprequests',
+            message: 'Join Nokatak Application'
+        }, requestCallback);
+    }
+    function requestCallback(response) {
+        
+    }
+    
+</script>
+
+
+
+

@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "IndexUser";
+}
+<h1>@ViewBag.list[0][0]</h1>    <p style="float:right"><a href="/Nokta/Index?id=@ViewBag.linkId">Back</a></p>
+@for (var i=0 ; i<@ViewBag.list.Count; i++) {
+    var Noktas = Model;
+     @* if (item.Body == null) { }
+    else
+    {
+        if (item.userID == null) { }
+        else
+        {
+    <h3>@Html.DisplayFor(modelItem => item.userID)</h3>
+            @Html.DisplayFor(modelItem => item.Body)<hr /><br />}
+    }
+   
+           @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+    <hr /> 
+    <h4>@ViewBag.pictures[i] @ViewBag.list[i][0]</h4>       
+    <p>
+            @ViewBag.list[i][1]
+            </p>
+    
+    <text>  Likes: @ViewBag.up[i]      Dislike: @ViewBag.down[i]</text> 
+                                
+}
+    <hr />
+
+     <div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({ appId: '432537273435666', channelURL: '@Request.Url.Scheme://@Request.Url.Authority@Url.Content("~/fbchannel.ashx")', cookie: true, xfbml: true, oauth: true });
+        FB.Event.subscribe('auth.login', function (response) { window.location.reload(); });
+        FB.Event.subscribe('auth.logout', function (response) { window.location.reload(); });
+
+    };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=432537273435666";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+
+    function postToFeed(messagewall) {
+        // calling the API ...
+        var obj = {
+            method: 'feed',
+            link: 'http://apps.facebook.com/nokatak/Nokta?id=100000814655661',
+            picture: 'http://fbrell.com/f8.jpg',
+            name: 'Nokatak Sharing',
+            caption: '',
+            description: messagewall,
+            message: messagewall
+        };
+
+        function callback(response) {
+        }
+
+        FB.ui(obj, callback);
+    }
+
+    function sendRequestViaMultiFriendSelector() {
+
+        FB.ui({ method: 'apprequests',
+            message: 'Join Nokatak Application'
+        }, requestCallback);
+    }
+    function requestCallback(response) {
+
+    }
+    
+</script>

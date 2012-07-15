@@ -1,0 +1,30 @@
+﻿@model Nokatak.Models.Vote
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Vote</legend>
+
+    <div class="display-label">nokta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nokta.Body)
+    </div>
+
+    <div class="display-label">up</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.up)
+    </div>
+
+    <div class="display-label">userID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
